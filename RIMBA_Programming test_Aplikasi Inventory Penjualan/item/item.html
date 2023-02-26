@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <div id = "dataitem">
+        <h3>Silakan Isi Data Berikut!</h3>
+        <p>1. Nama Item  : <input type="text" size="20" name="nama_item" v-model="nama_item"></p>
+        <p>2. Unit  : 
+            <select name="unit" Size="1">
+                <option value="default">--Option--</option>
+                <option value="Kg">Kilogram</option>
+                <option value="Pcs">Pieces</option>
+            </select>
+        <p>3. Harga Satuan  : <input type="text" size="20" name="harga_satuan" v-model="harga_satuan"></p>
+        <p>4. Gambar Barang  : <button class="btn btn-info" @click="onPickFile">Upload profile picture</button>
+            <input type="file" style="display: none" name="foto_ktp" ref="fileInput" accept="image/*" @change="onFilePicked"/>
+        <br>
+        <button @click="tambah">Simpan</button>
+        <hr>
+        <table id="dataTable" width="50%" cellspacing="15">
+           <thead>
+              <tr>
+                 <th width="15%">Nama Item</th>
+                 <th width="15%">Unit</th>
+                 <th width="10%">Harga Satuan</th>
+                 <th width="10%">Gambar Barang</th>
+                 <th width="20%">Tombol Hapus</th>
+               </tr>
+           </thead>
+           <tbody>
+              <tr v-for="(value, index) in data_item">
+                 <td>{{value.nama_item}}</td>
+                 <td>{{value.unit}}</td>
+                 <td>{{value.harga_satuan}}</td>
+                 <td><img :src="link" /></td>
+                 <td><button @click="hapus(index)">Hapus</button></td>
+              </tr>
+           </tbody>
+        </table>
+  </div>
+  
+  <script type = "text/javascript" src = "/vue/vue.min.js"></script>
+  <script>
+     //menambahkan, mengurangi, menampilkan data
+     var app1 = new Vue({
+        el: '#dataitem',
+        data: {
+           data_item : [],
+           nama_item : '',
+           unit: '',
+           harga_satuan: '',
+           gambar_barang : ''
+        },
+        methods : {
+           tambah(){
+                 var data_baru = {
+                    nama_item : this.nama_item,
+                    unit : this.unit, 
+                    harga_satuan : this.harga_satuan, 
+                    gambar_barang : this.gambar_barang
+                 };
+                 this.data_buku.push(data_baru);
+                 this.nama_item='';
+                 this.unit='';
+                 this.harga_satuan='';
+                 this.gambar_barang='';
+           },
+           hapus(index){
+                 this.data_buku.splice(index, 1);
+           }
+        }
+     })
+  </script>
+</body>
+</html>

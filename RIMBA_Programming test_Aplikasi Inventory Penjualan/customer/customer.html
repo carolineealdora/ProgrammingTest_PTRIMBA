@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+   <div id="datacustomer">
+      <h3>Silakan Isi Data Berikut!</h3>
+      <p>1. Nama : <input type="text" size="20" name="nama" v-model="nama"></p>
+      <p>2. Contact : <input type="text" size="20" name="contact" v-model="contact"></p>
+      <p>3. Email : <input type="text" size="20" name="email" v-model="email"></p>
+      <p>3. Alamat : <input type="text" size="20" name="alamat" v-model="alamat"></p>
+      <p>4. Diskon : <input type="text" size="20" name="alamat" v-model="alamat"></p>
+      <p>5. Tipe Diskon :
+         <select name="tipe_diskon" Size="1">
+            <option value="default">--Option--</option>
+            <option value="persentase">Persentase</option>
+            <option value="fix">Fix</option>
+         </select>
+      <p>6. Foto KTP : <button class="btn btn-info" @click="onPickFile">Upload profile picture</button>
+         <input type="file" style="display: none" name="foto_ktp" ref="fileInput" accept="image/*" @change="onFilePicked" />
+         <br>
+         <button @click="tambah">Simpan</button>
+         <hr>
+      <table id="dataTable" width="50%" cellspacing="15">
+         <thead>
+            <tr>
+               <th width="15%">Nama</th>
+               <th width="15%">Contact</th>
+               <th width="15%">Email</th>
+               <th width="10%">Alamat</th>
+               <th width="10%">Diskon</th>
+               <th width="10%">Tipe Diskon</th>
+               <th width="10%">Foto KTP</th>
+               <th width="20%">Tombol Hapus</th>
+            </tr>
+         </thead>
+         <tbody>
+            <tr v-for="(value, index) in data_customer">
+               <td>{{value.nama}}</td>
+               <td>{{value.contact}}</td>
+               <td>{{value.email}}</td>
+               <td>{{value.alamat}}</td>
+               <td>{{value.diskon}}</td>
+               <td>{{value.tipe_diskon}}</td>
+               <td><img :src="link" /></td>
+               <td><button @click="hapus(index)">Hapus</button></td>
+            </tr>
+         </tbody>
+      </table>
+   </div>
+
+   <script type="text/javascript" src="/vue/vue.min.js"></script>
+   <script>
+      //menambahkan, mengurangi, menampilkan data
+      var app1 = new Vue({
+         el: '#datacustomer',
+         data: {
+            data_customer: [],
+            nama: '',
+            contact: '',
+            email: '',
+            alamat: '',
+            diskon: '',
+            tipe_diskon: '',
+            foto_ktp: ''
+         },
+         methods: {
+            tambah() {
+               var data_baru = {
+                  nama: this.nama,
+                  contact: this.contact,
+                  email: this.email,
+                  alamat: this.alamat,
+                  diskon: this.diskon,
+                  tipe_diskon: this.tipe_diskon,
+                  foto_ktp: this.foto_ktp
+               };
+               this.data_customer.push(data_baru);
+               this.nama = '';
+               this.contact = '';
+               this.email = '';
+               this.alamat = '';
+               this.diskon = '';
+               this.tipe_diskon = '';
+               this.foto_ktp = '';
+            },
+            hapus(index) {
+               this.data_customer.splice(index, 1);
+            }
+         }
+      })
+   </script>
+</body>
+
+</html>
